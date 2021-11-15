@@ -1,0 +1,28 @@
+---
+
+name: Publish
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Deploy
+        env:
+          deploy_key: ${{secrets.deploy_key}}
+        run: |
+          mkdir -p ${HOME}/.ssh
+          printf "%s\n" "cb.eqy.fr ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFF7ZEkBaVOUJfKguV4snrPO5tprbA5uX6y+HHcHTZyQ" > ${HOME}/.ssh/known_hosts
+          printf "%s\n" "$deploy_key" > ${HOME}/.ssh/id_ed25519
+          chmod 600 ${HOME}/.ssh/id_ed25519
+          eval $(ssh-agent)
+          ssh-add
+          rsync -a ./ chaima@cb.eqy.fr:/home/chaima/src/
+          ssh chaima@cb.eqy.fr /home/chaima/venv/bin/python -m pip install --upgrade setuptools wheel pip
+          ssh chaima@cb.eqy.fr /home/chaima/venv/bin/python -m pip install django django-rest-framework gunicorn
+          ssh chaima@cb.eqy.fr /home/chaima/venv/bin/python /home/chaima/src/manage.py migrate
+          ssh chaima@cb.eqy.fr sudo systemctl restart chaima.service
