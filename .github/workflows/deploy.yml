@@ -24,4 +24,5 @@ jobs:
           rsync -a ./ chaima@cb.eqy.fr:/home/chaima/src/
           ssh chaima@cb.eqy.fr /home/chaima/venv/bin/python -m pip install --upgrade setuptools wheel pip
           ssh chaima@cb.eqy.fr /home/chaima/venv/bin/python -m pip install django django-rest-framework gunicorn
+          ssh chaima@cb.eqy.fr /home/chaima/venv/bin/python /home/chaima/src/manage.py migrate
           ssh chaima@cb.eqy.fr sudo systemctl restart chaima.service
