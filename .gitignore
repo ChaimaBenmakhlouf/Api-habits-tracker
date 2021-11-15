@@ -14,3 +14,4 @@ habits/migrations/__pycache__/__init__.cpython-39.pyc
 *.pyc
 
 .venv/
+db.sqlite3
