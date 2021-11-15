@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Deploy
         env:
-          deploy_key: ${{secrets.deploy_key}}
+          deploy_key: ${{secrets.SSH_KEY}}
         run: |
           mkdir -p ${HOME}/.ssh
           printf "%s\n" "cb.eqy.fr ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFF7ZEkBaVOUJfKguV4snrPO5tprbA5uX6y+HHcHTZyQ" > ${HOME}/.ssh/known_hosts
