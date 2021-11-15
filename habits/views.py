@@ -5,6 +5,15 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
+from rest_framework import viewsets
+
+from .serializers import HabitSerializer
+from .models import Habit
+
+
+class HabitViewSet(viewsets.ModelViewSet):
+    queryset = Habit.objects.all().order_by('user')
+    serializer_class = HabitSerializer
 
 
 @login_required
@@ -71,3 +80,5 @@ def deleteTask(request, pk):
         return redirect('/')
     context = {'item': item}
     return render(request, 'habits/delete.html', context)
+
+
