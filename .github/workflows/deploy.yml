@@ -25,4 +25,5 @@ jobs:
           ssh chaima@chaima.eqy.fr /home/chaima/venv/bin/python -m pip install --upgrade setuptools wheel pip
           ssh chaima@chaima.eqy.fr /home/chaima/venv/bin/python -m pip install django django-rest-framework gunicorn
           ssh chaima@chaima.eqy.fr /home/chaima/venv/bin/python /home/chaima/src/manage.py migrate
+          ssh chaima@chaima.eqy.fr /home/chaima/venv/bin/python /home/chaima/src/manage.py collectstatic --noinput
           ssh chaima@chaima.eqy.fr sudo systemctl restart chaima.service
