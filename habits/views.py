@@ -7,12 +7,18 @@ from .models import *
 from .forms import *
 from rest_framework import viewsets
 from .serializers import HabitSerializer
+from .serializers import UserSerializer
 from .models import Habit
+from .models import User
 
 
 class HabitViewSet(viewsets.ModelViewSet):
     queryset = Habit.objects.all().order_by('user')
     serializer_class = HabitSerializer
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer    
 
 
 @login_required

@@ -4,6 +4,8 @@ from . import views
 
 router = routers.DefaultRouter()
 router.register(r'habits', views.HabitViewSet)
+router.register(r'users', views.UserViewSet)
+print(router.urls)
 
 urlpatterns = [
     path('home/', views.home, name='home'),
