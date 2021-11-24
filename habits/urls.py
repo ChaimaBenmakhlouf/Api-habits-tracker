@@ -9,7 +9,7 @@ router.register(r'users', views.UserViewSet)
 print(router.urls)
 
 urlpatterns = [
-    path("doc/", TemplateView.as_view(template_name="redoc.html"), name="redoc"),
+    path("doc/", TemplateView.as_view(template_name="habits/swagger-ui.html"), name="redoc"),
     path('home/', views.home, name='home'),
     path('register/', views.register, name='register'),
     path('index/', views.index, name="list"),
