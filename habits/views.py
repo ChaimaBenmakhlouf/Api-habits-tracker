@@ -6,14 +6,18 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
 from rest_framework import viewsets
-from .serializers import HabitSerializer
+from .serializers import HabitSerializer, HabitsSerializer
 from .serializers import UserSerializer
-from .models import Habit
+from .models import Habit, Habits
 from .models import User
 
 
+class HabitsViewSet(viewsets.ModelViewSet):
+    queryset = Habits.objects.all()
+    serializer_class = HabitsSerializer
+
 class HabitViewSet(viewsets.ModelViewSet):
-    queryset = Habit.objects.all().order_by('user')
+    queryset = Habit.objects.all()
     serializer_class = HabitSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -62,28 +66,28 @@ def index(request):
     return render(request, 'habits/list.html', context)
 
 
-def updateTask(request, pk):
+# def updateTask(request, pk):
 
-    habit = Habit.objects.get(id=pk)
-    form = HabitForm(instance=habit)
-    if request.method == 'POST':
-        form = HabitForm(request.POST, instance=habit)
+#     habit = Habit.objects.get(id=pk)
+#     form = HabitForm(instance=habit)
+#     if request.method == 'POST':
+#         form = HabitForm(request.POST, instance=habit)
 
-    if form.is_valid():
-        form.save()
-        return redirect('/')
+#     if form.is_valid():
+#         form.save()
+#         return redirect('/')
 
-    context = {'form': form}
-    return render(request, 'habits/update_task.html', context)
+#     context = {'form': form}
+#     return render(request, 'habits/update_task.html', context)
 
 
-def deleteTask(request, pk):
+# def deleteTask(request, pk):
 
-    item = Habit.objects.get(id=pk)
-    if request.method == 'POST':
-        item.delete()
-        return redirect('/')
-    context = {'item': item}
-    return render(request, 'habits/delete.html', context)
+#     item = Habit.objects.get(id=pk)
+#     if request.method == 'POST':
+#         item.delete()
+#         return redirect('/')
+#     context = {'item': item}
+#     return render(request, 'habits/delete.html', context)
 
 
